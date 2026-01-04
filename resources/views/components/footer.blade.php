@@ -35,7 +35,7 @@
             <div>
                 <h4 class="font-semibold text-lg mb-4">Informasi</h4>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('berita') }}" class="text-gray-400 hover:text-white transition">Berita &
+                    <li><a href="{{ route('berita.index') }}" class="text-gray-400 hover:text-white transition">Berita &
                             Pengumuman</a></li>
                     <li><a href="{{ route('akademik.kurikulum') }}"
                             class="text-gray-400 hover:text-white transition">Kurikulum</a></li>

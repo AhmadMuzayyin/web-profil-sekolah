@@ -61,8 +61,8 @@
                     Galeri
                 </a>
 
-                <a href="{{ route('berita') }}"
-                    class="px-3 py-2 rounded-md hover:bg-blue-600 transition {{ request()->routeIs('berita') ? 'bg-blue-800' : '' }}">
+                <a href="{{ route('berita.index') }}"
+                    class="px-3 py-2 rounded-md hover:bg-blue-600 transition {{ request()->routeIs('berita.*') ? 'bg-blue-800' : '' }}">
                     Berita
                 </a>
 
@@ -126,7 +126,7 @@
 
             <a href="{{ route('fasilitas') }}" class="block px-3 py-2 rounded-md hover:bg-blue-600">Fasilitas</a>
             <a href="{{ route('galeri') }}" class="block px-3 py-2 rounded-md hover:bg-blue-600">Galeri</a>
-            <a href="{{ route('berita') }}" class="block px-3 py-2 rounded-md hover:bg-blue-600">Berita</a>
+            <a href="{{ route('berita.index') }}" class="block px-3 py-2 rounded-md hover:bg-blue-600">Berita</a>
             <a href="{{ route('kontak') }}" class="block px-3 py-2 rounded-md hover:bg-blue-600">Kontak</a>
         </div>
     </div>
