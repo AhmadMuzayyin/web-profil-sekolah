@@ -1,4 +1,4 @@
-<nav class="bg-blue-700 text-white sticky top-0 z-50 shadow-lg" x-data="{ open: false, profilOpen: false, akademikOpen: false }">
+<nav class="bg-blue-700 text-white sticky top-0 z-50 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <a href="{{ route('home') }}" class="flex items-center space-x-3">
@@ -14,7 +14,7 @@
                     Beranda
                 </a>
 
-                <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                <div class="relative dropdown-hover">
                     <a href="{{ route('profil.index') }}"
                         class="px-3 py-2 rounded-md hover:bg-blue-600 transition flex items-center {{ request()->routeIs('profil.*') ? 'bg-blue-800' : '' }}">
                         Profil
@@ -23,8 +23,7 @@
                             </path>
                         </svg>
                     </a>
-                    <div x-show="open" x-transition
-                        class="absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <div class="dropdown-menu absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
                         <a href="{{ route('profil.sejarah') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700">Sejarah</a>
                         <a href="{{ route('profil.visi-misi') }}"
@@ -35,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                <div class="relative dropdown-hover">
                     <a href="{{ route('akademik.index') }}"
                         class="px-3 py-2 rounded-md hover:bg-blue-600 transition flex items-center {{ request()->routeIs('akademik.*') ? 'bg-blue-800' : '' }}">
                         Akademik
@@ -44,8 +43,7 @@
                             </path>
                         </svg>
                     </a>
-                    <div x-show="open" x-transition
-                        class="absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <div class="dropdown-menu absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
                         <a href="{{ route('akademik.kurikulum') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700">Kurikulum</a>
                         <a href="{{ route('akademik.ekstrakurikuler') }}"
@@ -74,31 +72,32 @@
                 </a>
             </div>
 
-            <button @click="open = !open" class="lg:hidden p-2 rounded-md hover:bg-blue-600 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md hover:bg-blue-600 focus:outline-none">
+                <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 6h16M4 12h16M4 18h16"></path>
-                    <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                </svg>
+                <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </div>
     </div>
 
-    <div x-show="open" x-transition class="lg:hidden bg-blue-800">
+    <div id="mobile-menu" class="lg:hidden bg-blue-800 hidden">
         <div class="px-4 py-3 space-y-1">
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md hover:bg-blue-600">Beranda</a>
 
             <div>
-                <button @click="profilOpen = !profilOpen"
-                    class="w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-blue-600">
+                <button class="mobile-dropdown-toggle w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-blue-600">
                     <span>Profil</span>
-                    <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': profilOpen }" fill="none"
+                    <svg class="mobile-dropdown-icon w-4 h-4 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div x-show="profilOpen" class="pl-4 space-y-1">
+                <div class="mobile-dropdown-content pl-4 space-y-1 hidden">
                     <a href="{{ route('profil.sejarah') }}"
                         class="block px-3 py-2 rounded-md hover:bg-blue-600 text-sm">Sejarah</a>
                     <a href="{{ route('profil.visi-misi') }}"
@@ -109,16 +108,15 @@
             </div>
 
             <div>
-                <button @click="akademikOpen = !akademikOpen"
-                    class="w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-blue-600">
+                <button class="mobile-dropdown-toggle w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-blue-600">
                     <span>Akademik</span>
-                    <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': akademikOpen }" fill="none"
+                    <svg class="mobile-dropdown-icon w-4 h-4 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                         </path>
                     </svg>
                 </button>
-                <div x-show="akademikOpen" class="pl-4 space-y-1">
+                <div class="mobile-dropdown-content pl-4 space-y-1 hidden">
                     <a href="{{ route('akademik.kurikulum') }}"
                         class="block px-3 py-2 rounded-md hover:bg-blue-600 text-sm">Kurikulum</a>
                     <a href="{{ route('akademik.ekstrakurikuler') }}"
@@ -134,4 +132,42 @@
     </div>
 </nav>
 
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
+            
+            if (menu) menu.classList.toggle('hidden');
+            if (openIcon) openIcon.classList.toggle('hidden');
+            if (closeIcon) closeIcon.classList.toggle('hidden');
+        });
+    }
+
+    // Mobile dropdown toggles
+    document.querySelectorAll('.mobile-dropdown-toggle').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('.mobile-dropdown-icon');
+            
+            if (content) content.classList.toggle('hidden');
+            if (icon) icon.classList.toggle('rotate-180');
+        });
+    });
+
+    // Desktop dropdown hover
+    document.querySelectorAll('.dropdown-hover').forEach(function(dropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+            const menu = this.querySelector('.dropdown-menu');
+            if (menu) menu.classList.remove('hidden');
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+            const menu = this.querySelector('.dropdown-menu');
+            if (menu) menu.classList.add('hidden');
+        });
+    });
+</script>
