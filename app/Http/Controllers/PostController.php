@@ -18,7 +18,13 @@ class PostController extends Controller
             $query->published();
         }])->get();
         
-        return view('pages.berita.index', compact('posts', 'categories'));
+        $latestPosts = Post::with('category')
+            ->published()
+            ->latest('published_at')
+            ->take(5)
+            ->get();
+        
+        return view('pages.berita.index', compact('posts', 'categories', 'latestPosts'));
     }
 
     public function show($slug)
