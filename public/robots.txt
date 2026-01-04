@@ -3,4 +3,5 @@ Allow: /
 Disallow: /admin/
 Disallow: /storage/
 
-Sitemap: {{ url('/sitemap.xml') }}
+# Sitemap URL should be added dynamically via routes
+# Sitemap: https://yourdomain.com/sitemap.xml

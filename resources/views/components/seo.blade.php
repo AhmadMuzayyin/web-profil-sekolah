@@ -24,4 +24,4 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $metaTitle }}">
 <meta name="twitter:description" content="{{ $metaDescription }}">
-<meta name="twitter:image" content="{{ $ogTags['og:image'] }}">
+<meta name="twitter:image" content="{{ $ogTags['og:image'] ?? asset('images/default-og-image.jpg') }}">

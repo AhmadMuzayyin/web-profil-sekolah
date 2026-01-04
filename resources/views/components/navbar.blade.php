@@ -134,15 +134,18 @@
 
 <script>
     // Mobile menu toggle
-    document.getElementById('mobile-menu-button').addEventListener('click', function() {
-        const menu = document.getElementById('mobile-menu');
-        const openIcon = document.getElementById('menu-open-icon');
-        const closeIcon = document.getElementById('menu-close-icon');
-        
-        menu.classList.toggle('hidden');
-        openIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
-    });
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
+            
+            if (menu) menu.classList.toggle('hidden');
+            if (openIcon) openIcon.classList.toggle('hidden');
+            if (closeIcon) closeIcon.classList.toggle('hidden');
+        });
+    }
 
     // Mobile dropdown toggles
     document.querySelectorAll('.mobile-dropdown-toggle').forEach(function(button) {
@@ -150,19 +153,21 @@
             const content = this.nextElementSibling;
             const icon = this.querySelector('.mobile-dropdown-icon');
             
-            content.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
+            if (content) content.classList.toggle('hidden');
+            if (icon) icon.classList.toggle('rotate-180');
         });
     });
 
     // Desktop dropdown hover
     document.querySelectorAll('.dropdown-hover').forEach(function(dropdown) {
         dropdown.addEventListener('mouseenter', function() {
-            this.querySelector('.dropdown-menu').classList.remove('hidden');
+            const menu = this.querySelector('.dropdown-menu');
+            if (menu) menu.classList.remove('hidden');
         });
         
         dropdown.addEventListener('mouseleave', function() {
-            this.querySelector('.dropdown-menu').classList.add('hidden');
+            const menu = this.querySelector('.dropdown-menu');
+            if (menu) menu.classList.add('hidden');
         });
     });
 </script>
