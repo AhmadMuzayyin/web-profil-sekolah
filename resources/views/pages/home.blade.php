@@ -237,83 +237,53 @@
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition group">
-                    <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs text-blue-600 font-semibold uppercase">Pengumuman</span>
-                        <h3 class="text-lg font-bold text-gray-800 mt-2 group-hover:text-blue-600 transition">Penerimaan
-                            Peserta Didik Baru Tahun Ajaran 2026/2027</h3>
-                        <p class="text-gray-600 mt-2 text-sm line-clamp-2">Pendaftaran siswa baru dibuka mulai tanggal 1
-                            Februari 2026. Segera daftarkan putra-putri Anda.</p>
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t">
-                            <span class="text-xs text-gray-500">2 Januari 2026</span>
-                            <a href="{{ route('berita') }}"
-                                class="text-blue-600 text-sm font-semibold hover:text-blue-700">Selengkapnya →</a>
+                @forelse($posts as $post)
+                    <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition group">
+                        @if($post->featured_image)
+                            <div class="h-48 overflow-hidden">
+                                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            </div>
+                        @else
+                            <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                                <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                                    </path>
+                                </svg>
+                            </div>
+                        @endif
+                        <div class="p-6">
+                            <span class="text-xs text-blue-600 font-semibold uppercase">{{ $post->category->name }}</span>
+                            <h3 class="text-lg font-bold text-gray-800 mt-2 group-hover:text-blue-600 transition">
+                                {{ $post->title }}
+                            </h3>
+                            <p class="text-gray-600 mt-2 text-sm line-clamp-2">{{ $post->excerpt ?? Str::limit(strip_tags($post->content), 100) }}</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t">
+                                <span class="text-xs text-gray-500">{{ $post->published_at->format('d M Y') }}</span>
+                                <a href="{{ route('berita.show', $post->slug) }}"
+                                    class="text-blue-600 text-sm font-semibold hover:text-blue-700">Selengkapnya →</a>
+                            </div>
                         </div>
+                    </article>
+                @empty
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500">Belum ada berita tersedia.</p>
                     </div>
-                </article>
-
-                <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition group">
-                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs text-green-600 font-semibold uppercase">Prestasi</span>
-                        <h3 class="text-lg font-bold text-gray-800 mt-2 group-hover:text-blue-600 transition">Siswa SDN
-                            Ketawang Karay Raih Juara Olimpiade Matematika</h3>
-                        <p class="text-gray-600 mt-2 text-sm line-clamp-2">Selamat kepada Ahmad Fauzi kelas 6A yang
-                            berhasil meraih juara 1 Olimpiade Matematika tingkat kabupaten.</p>
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t">
-                            <span class="text-xs text-gray-500">28 Desember 2025</span>
-                            <a href="{{ route('berita') }}"
-                                class="text-blue-600 text-sm font-semibold hover:text-blue-700">Selengkapnya →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition group">
-                    <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs text-purple-600 font-semibold uppercase">Kegiatan</span>
-                        <h3 class="text-lg font-bold text-gray-800 mt-2 group-hover:text-blue-600 transition">Peringatan
-                            Hari Guru Nasional 2025</h3>
-                        <p class="text-gray-600 mt-2 text-sm line-clamp-2">Berbagai rangkaian acara menarik dalam
-                            memperingati Hari Guru Nasional tahun 2025.</p>
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t">
-                            <span class="text-xs text-gray-500">25 November 2025</span>
-                            <a href="{{ route('berita') }}"
-                                class="text-blue-600 text-sm font-semibold hover:text-blue-700">Selengkapnya →</a>
-                        </div>
-                    </div>
-                </article>
+                @endforelse
             </div>
 
-            <div class="text-center mt-12">
-                <a href="{{ route('berita') }}"
-                    class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-                    Lihat Semua Berita
-                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                </a>
-            </div>
+            @if($posts->count() > 0)
+                <div class="text-center mt-12">
+                    <a href="{{ route('berita.index') }}"
+                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                        Lihat Semua Berita
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            @endif
         </div>
     </section>
 
