@@ -11,15 +11,15 @@ class GalleryController extends Controller
     public function index(Request $request)
     {
         $categories = GalleryCategory::withCount('galleries')->get();
-        
-        $query = Gallery::with('category')->latest();
-        
+
+        $query = Gallery::with('galleryCategory')->latest();
+
         if ($request->has('category') && $request->category !== '') {
             $query->where('gallery_category_id', $request->category);
         }
-        
+
         $galleries = $query->paginate(12);
-        
+
         return view('pages.galeri', compact('galleries', 'categories'));
     }
 }
